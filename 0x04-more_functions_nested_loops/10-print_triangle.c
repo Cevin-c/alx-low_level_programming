@@ -1,51 +1,34 @@
 #include "main.h"
 
 /**
- * print_triangle - print a triangle at a give size.
- * @size : size of triangle to print.
- *
- *
+ * print_triangle - entry point
+ * owned by Bwave/Bright Daniel
+ * Description: Prints diagonals
+ *@size: size of the triangle
+ * Return: void
  */
+
 void print_triangle(int size)
 {
-/*
- * int i: for iteration in for loop also use as a way to subtract.
- *
- * int margin: will recored the amount of whitesapce ill need to print.
- * int dis"tance": is used to offset size.
- * int to_print: is used to tell how many '#' will need to be print per-line
- */
-	int i, margin, dis, to_print;
+	int row, hashes, spaces;
 
 	if (size <= 0)
 	{
 		_putchar('\n');
-		return;
 	}
-
-	dis = size - 1;
-	for (i = 0 ; i < size ; i++)
+	else
 	{
-/*
- * we set the margin to Zero every iteration. since we're try to only print
- * the right amount of white space. we do some math to dis to set the stopping
- * point
- */
-		margin = 0;
-		while (margin < (dis - i))
+		for (row = 1; row <= size; row++)
 		{
-			_putchar(32);
-			margin++;
+			for (spaces = size - row; spaces >= 1; spaces--)
+			{
+				_putchar(' ');
+			}
+			for (hashes = 1; hashes <= row; hashes++)
+			{
+				_putchar('#');
+			}
+			_putchar('\n');
 		}
-
-		to_print = size - margin;
-
-		while (to_print > 0)
-		{
-			_putchar('#');
-			to_print--;
-		}
-		_putchar('\n');
 	}
 }
-
