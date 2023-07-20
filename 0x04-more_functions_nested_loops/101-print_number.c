@@ -1,28 +1,46 @@
-#include <stdio.h>
-
+#include "holberton.h"
 /**
- * main - entry point
- *
- * Return: always 0 (sucess)
+ * print_number - print an int numbers.
+ * @n: number tested
+ * Return: Always 0.
  */
-int main(void)
+void print_number(int n)
 {
-	unsigned long int num = 612852475143;
-	unsigned long int prim;
+	int i, j, digit, digits, power;
+	unsigned int temp, numchar, number;
 
-	prim = 3;
-	while (prim < num / 2)
+	digit = 0;
+	if (n < 0)
 	{
-		if ((num % prim) == 0)
-		{
-			if((prim % 3) == 2)
-				printf(",%lu ", prim);
-		}
-
-		prim+=2;
+		_putchar('-');
+		temp = -n;
+	}
+	else
+	{
+		temp = n;
 	}
 
-	putchar('\n');
-	return (0);
-}
+	number = temp;
 
+	while (number >= 10)
+	{
+		number = number / 10;
+		digit++;
+	}
+	digits = digit + 1;
+	power = 1;
+	i = 1;
+
+	while (i < digits)
+	{
+		power = power * 10;
+		i++;
+	}
+	j = power;
+	while (j >= 1)
+	{
+		numchar = (temp / j) % 10;
+		_putchar(numchar + '0');
+		j = j / 10;
+	}
+}
