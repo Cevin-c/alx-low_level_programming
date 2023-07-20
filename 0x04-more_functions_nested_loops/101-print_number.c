@@ -1,20 +1,28 @@
-#include "main.h"
+#include <stdio.h>
+
 /**
-* print_number - Prints a number
-* @n: The number to print
-*
-*/
-void print_number(int n)
+ * main - entry point
+ *
+ * Return: always 0 (sucess)
+ */
+int main(void)
 {
-unsigned int num = n;
-if (n < 0)
-{
-_putchar('-');
-num = -num;
+	unsigned long int num = 612852475143;
+	unsigned long int prim;
+
+	prim = 3;
+	while (prim < num / 2)
+	{
+		if ((num % prim) == 0)
+		{
+			if((prim % 3) == 2)
+				printf(",%lu ", prim);
+		}
+
+		prim+=2;
+	}
+
+	putchar('\n');
+	return (0);
 }
-if (num > 9)
-{
-print_number(num / 10);
-}
-_putchar(num % 10 + '0');
-}
+
