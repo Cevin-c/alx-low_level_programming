@@ -1,12 +1,10 @@
  #include "main.h"
 
 /**
- * puts2 - Write a function that prints every other character of a string, 
- *         starting with the first character, followed by a new line.
- *
- * @s: This pointer point to a char or string
- *
- *
+ * puts2 - function should print only one character out of two
+ * starting with the first one
+ * @s: This is the pointer
+ * Return: print
  */
 
 void puts2(char *s)
