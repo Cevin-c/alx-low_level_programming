@@ -1,23 +1,23 @@
 #include "main.h"
 /**
  * print_number - print an int numbers.
- * @u: number tested
+ * @n: number tested
  * Return: Always 0.
  */
-void print_number(int u)
+void print_number(int n)
 {
 	int i, j, digit, digits, power;
 	unsigned int temp, numchar, number;
 
 	digit = 0;
-	if (u < 0)
+	if (n < 0)
 	{
 		_putchar('-');
-		temp = -u;
+		temp = -n;
 	}
 	else
 	{
-		temp = u;
+		temp = n;
 	}
 
 	number = temp;
