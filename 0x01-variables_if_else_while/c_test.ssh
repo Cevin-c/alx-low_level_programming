@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for ((number=0; number<10; number++))
+do
+    echo -n "$number "
+done
+
+echo
