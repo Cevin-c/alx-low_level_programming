@@ -1,64 +1,77 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * strtow - concatenates all the arguments of your program
- *@str: string
- *@av: arguments
- * Return: a pointer to a new string
+ * count_word - helper function to count the number of words in a string
+ * @s: string to evaluate
+ * Return: number of words
+ */
+int count_word(char *s)
+{
+	int pub, a, b;
+
+	pub = 0;
+	b = 0;
+
+	for (a = 0; s[a] != '\0'; a++)
+	{
+		if (s[a] == ' ')
+			pub = 0;
+		else if (pub == 0)
+		{
+			pub = 1;
+			b++;
+		}
+	}
+	return (b);
+}
+
+/**
+ * *strtow - splits a string into words
+ * @str: string to split
+ * Return: pointer to an array of strings (Success)
+ * or NULL (Error)
  */
 char **strtow(char *str)
 {
-	int i, w, j, k, count, m, wordf;
-	char **p;
-	char *x;
+	char **m, *t;
+	int a, b, length, words, c, start, end;
 
-	w = 0;
-	j = 0;
-	i = 0;
-	count = 0;
-	if (*str == '\0' || str == NULL)
+	b = 0;
+	length = 0;
+	c = 0;
+
+	while (*(str + length))
+		length++;
+	words = count_word(str);
+	if (words == 0)
 		return (NULL);
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] == ' ' && (str[i + 1] != ' ' || str[i + 1] == '\0'))
-			w++;
-	}
-	p = (char **)malloc((w + 1) * sizeof(char *));
-	if (p == NULL)
+
+	m = (char **) malloc(sizeof(char *) * (words + 1));
+	if (m == NULL)
 		return (NULL);
-	for (wordf = 0; str[wordf] && j <= w; wordf++)
+
+	for (a = 0; a <= length; a++)
 	{
-		count = 0;
-		if (str[wordf] != ' ')
+		if (str[a] == ' ' || str[a] == '\0')
 		{
-			for (i = wordf ; str[i] != '\0'; i++)
+			if (c)
 			{
-				if (str[i] == ' ')
-					break;
-				count++;
+				end = a;
+				t = (char *) malloc(sizeof(char) * (c + 1));
+				if (t == NULL)
+					return (NULL);
+				while (start < end)
+					*t++ = str[start++];
+				*t = '\0';
+				m[b] = t - c;
+				b++;
+				c = 0;
 			}
-			*(p + j) = (char *)malloc((count + 1) * sizeof(char));
-			if (*(p + j) == NULL)
-			{
-				for (k = 0; k <= j; k++)
-				{
-					x = p[k];
-					free(x);
-				}
-				free(p);
-				return (NULL);
-			}
-			for (m = 0; wordf < i; wordf++)
-			{
-				p[j][m] = str[wordf];
-				m++;
-			}
-			p[j][m] = '\0';
-			j++;
 		}
+		else if (c++ == 0)
+			start = a;
 	}
-	p[j] = NULL;
-	return (p);
+	m[b] = NULL;
+	return (m);
 }
