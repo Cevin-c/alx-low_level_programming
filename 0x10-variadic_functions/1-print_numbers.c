@@ -3,7 +3,7 @@
 #include <stdarg.h>
 
 /**
- * print_numbers - check the code for Holberton School students.
+ * print_numbers - check the code.
  * @n: number of arguments
  * @separator: character separator of numbers
  * Return: Always 0.
@@ -20,7 +20,7 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 
 	va_start(numbers, n);
 
-	for (q = 0; i < n; q++)
+	for (q = 0; q < n; q++)
 	{
 		printf("%d", va_arg(numbers, int));
 		if (n == q + 1)
