@@ -10,50 +10,77 @@
  *         Otherwise - the number of unique nodes in the list.
  */
 
-size_t print_listint_safe(const listint_t *head)
+size_t looped_listint_len(const listint_t *head)
 {
-	const listint_t *slow_p = head ,*fast_p = head;
-	size_t ele = 0;
-	int is_loop = 0;
+	const listint_t *ptr, *hptr;
+	size_t nodes = 1;
 
-	while (slow_p && fast_p && fast_p->next)
-	{
-		if (!(fast_p->next->next))
-			break;
-		slow_p = slow_p->next;
-		fast_p = fast_p->next->next;
-		if (slow_p == fast_p)
-		{
-			slow_p = slow_p->next;
-			is_loop = 1;
-			break;
-		}
-	}
+	if (head == NULL || head->next == NULL)
+		return (0);
 
-	if (!is_loop)
-	{
-		while (head)
-		{
-			ele++;
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
-		}
-		return (ele);
-	}
+	ptr = head->next;
+	hptr = (head->next)->next;
 
-	while (head)
+	while (hptr)
 	{
-		ele++;
-		if (head == slow_p)
+		if (ptr == hptr)
 		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			printf("-> [%p] %d\n", (void *)head, head->next->n);
-			exit(98);
+			ptr = head;
+			while (ptr != hptr)
+			{
+				nodes++;
+				ptr = ptr->next;
+				hptr = hptr->next;
+			}
+
+			ptr = ptr->next;
+			while (ptr != hptr)
+			{
+				nodes++;
+				ptr = ptr->next;
+			}
+
+			return (nodes);
 		}
 
-		printf("[%p] %d\n", (void *)head, head->n);
-		head = head->next;
+		ptr = ptr->next;
+		hptr = (hptr->next)->next;
 	}
+
 	return (0);
 }
 
+/**
+ * print_listint_safe - Prints a listint_t list safely.
+ * @head: A pointer to the head of the listint_t list.
+ *
+ * Return: The number of nodes in the list.
+ */
+size_t print_listint_safe(const listint_t *head)
+{
+	size_t nodes, index = 0;
+
+	nodes = looped_listint_len(head);
+
+	if (nodes == 0)
+	{
+		for (; head != NULL; nodes++)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
+		}
+	}
+
+	else
+	{
+		for (index = 0; index < nodes; index++)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
+		}
+
+		printf("-> [%p] %d\n", (void *)head, head->n);
+	}
+
+	return (nodes);
+}
